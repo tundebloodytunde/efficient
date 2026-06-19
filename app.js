@@ -140,5 +140,60 @@ function init() {
   document.querySelector(`button[data-section="${last}"]`).classList.add("active");
   renderSection(last);
 }
+// ---------------------------
+// SWIPE GESTURES
+// ---------------------------
+let touchStartX = 0;
+let touchEndX = 0;
+
+const sectionsOrder = ["or", "clinic", "admin", "writing", "leadership"];
+
+function handleGesture() {
+  const threshold = 60; // minimum swipe distance
+
+  if (touchEndX < touchStartX - threshold) {
+    swipeLeft();
+  }
+  if (touchEndX > touchStartX + threshold) {
+    swipeRight();
+  }
+}
+
+function swipeLeft() {
+  const current = localStorage.getItem("lastSection") || "or";
+  let index = sectionsOrder.indexOf(current);
+
+  if (index < sectionsOrder.length - 1) {
+    const next = sectionsOrder[index + 1];
+    activateSection(next);
+  }
+}
+
+function swipeRight() {
+  const current = localStorage.getItem("lastSection") || "or";
+  let index = sectionsOrder.indexOf(current);
+
+  if (index > 0) {
+    const prev = sectionsOrder[index - 1];
+    activateSection(prev);
+  }
+}
+
+function activateSection(sectionName) {
+  document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+  document.querySelector(`button[data-section="${sectionName}"]`).classList.add("active");
+
+  renderSection(sectionName);
+}
+
+// Attach listeners
+document.addEventListener("touchstart", e => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener("touchend", e => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleGesture();
+});
 
 init();
