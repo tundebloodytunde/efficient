@@ -91,3 +91,6 @@ nav button {
 nav button.active {
   background: #333;
 }
+#card-container {
+  transition: transform 0.25s ease;
+}
