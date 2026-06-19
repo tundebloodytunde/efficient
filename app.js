@@ -115,13 +115,11 @@ function renderSection(sectionName) {
 // ---------------------------
 document.querySelectorAll("nav button").forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
     const section = btn.getAttribute("data-section");
-    renderSection(section);
+    activateSection(section);
   });
 });
+
 
 // ---------------------------
 // INIT
