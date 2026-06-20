@@ -195,3 +195,72 @@ document.addEventListener("touchend", e => {
 });
 
 init();
+// ---------------------------
+// WEEKLY PLANNER DATA
+// ---------------------------
+const weeklyPlan = [
+  { day: "Monday", type: "OR Day" },
+  { day: "Tuesday", type: "Admin Day" },
+  { day: "Wednesday", type: "Clinic Day" },
+  { day: "Thursday", type: "OR Day" },
+  { day: "Friday", type: "Clinic Day" },
+  { day: "Saturday", type: "Admin Day" },
+  { day: "Sunday", type: "Admin Day" }
+];
+
+// ---------------------------
+// RENDER WEEKLY PLANNER
+// ---------------------------
+function renderPlanner() {
+  const container = document.getElementById("card-container");
+  container.innerHTML = "";
+
+  const plannerDiv = document.createElement("div");
+  plannerDiv.id = "weekly-planner";
+
+  weeklyPlan.forEach(item => {
+    const div = document.createElement("div");
+    div.className = "week-day";
+    div.innerHTML = `
+      <h3>${item.day} — ${item.type}</h3>
+      <p>${generateScheduleText(item.type)}</p>
+    `;
+
+    div.addEventListener("click", () => {
+      div.classList.toggle("expanded");
+    });
+
+    plannerDiv.appendChild(div);
+  });
+
+  container.appendChild(plannerDiv);
+}
+
+// Helper: return schedule text for each day type
+function generateScheduleText(type) {
+  const blocks = {
+    "OR Day": [
+      "6:00 — Pre‑Op Review",
+      "7:00 — Case 1",
+      "10:00 — Case 2",
+      "1:00 — Case 3",
+      "4:00 — Post‑Op Notes"
+    ],
+    "Clinic Day": [
+      "6:00 — Imaging Review",
+      "8:00 — Clinic AM",
+      "12:00 — Lunch + Calls",
+      "1:00 — Clinic PM",
+      "4:30 — Wrap‑Up"
+    ],
+    "Admin Day": [
+      "6:00 — Email + Billing",
+      "9:00 — Meetings",
+      "12:00 — Planning",
+      "2:00 — Writing",
+      "4:00 — Leadership Work"
+    ]
+  };
+
+  return blocks[type].join("<br>");
+}
