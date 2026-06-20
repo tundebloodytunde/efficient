@@ -94,3 +94,36 @@ nav button.active {
 #card-container {
   transition: transform 0.25s ease;
 }
+/* WEEKLY PLANNER */
+#weekly-planner {
+  margin-top: 20px;
+}
+
+.week-day {
+  background: #111;
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.week-day:hover {
+  border-color: #666;
+}
+
+.week-day h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.week-day p {
+  margin: 6px 0 0 0;
+  color: #ccc;
+  display: none;
+}
+
+.week-day.expanded p {
+  display: block;
+}
