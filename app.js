@@ -116,9 +116,19 @@ function renderSection(sectionName) {
 document.querySelectorAll("nav button").forEach(btn => {
   btn.addEventListener("click", () => {
     const section = btn.getAttribute("data-section");
+
+    document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    if (section === "planner") {
+      renderPlanner();
+      return;
+    }
+
     activateSection(section);
   });
 });
+
 
 
 // ---------------------------
